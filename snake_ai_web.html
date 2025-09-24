@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐍 Snake AI Ultimate - Propuesta de Valor Definitiva</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Fondo animado con partículas -->
+    <div id="particles-background"></div>
+
+    <!-- Overlays de efectos -->
+    <div id="scanlines"></div>
+    <div id="glow-overlay"></div>
+
+    <!-- Pantalla de carga épica -->
+    <div id="loading-screen" class="loading-active">
+        <div class="loading-container">
+            <div class="ai-logo">
+                <div class="logo-core">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="logo-rings">
+                    <div class="ring ring-1"></div>
+                    <div class="ring ring-2"></div>
+                    <div class="ring ring-3"></div>
+                </div>
+            </div>
+            <h1 class="loading-title">
+                <span class="glitch" data-text="SNAKE AI">SNAKE AI</span>
+                <span class="subtitle">ULTIMATE</span>
+            </h1>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+                <div class="loading-particles"></div>
+            </div>
+            <p class="loading-text">
+                <span class="typing-text">Inicializando algoritmos de inteligencia artificial...</span>
+            </p>
+            <div class="tech-specs">
+                <div class="spec-item">
+                    <i class="fas fa-microchip"></i>
+                    <span>Algoritmos: BFS, DFS, A*, Dijkstra</span>
+                </div>
+                <div class="spec-item">
+                    <i class="fas fa-paint-brush"></i>
+                    <span>Renderizado: WebGL 2.0</span>
+                </div>
+                <div class="spec-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Métricas: Tiempo real</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interfaz principal -->
+    <div id="main-interface" class="interface-hidden">
+        <!-- Header épico -->
+        <header class="game-header">
+            <div class="header-glow"></div>
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="main-logo">
+                        <i class="fas fa-robot"></i>
+                        <span class="logo-text">
+                            <span class="primary">SNAKE</span>
+                            <span class="secondary">AI</span>
+                        </span>
+                    </div>
+                    <div class="subtitle-badge">
+                        <span>PROPUESTA DE VALOR DEFINITIVA</span>
+                    </div>
+                </div>
+
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-trophy"></i>
+                        <span class="stat-label">HIGH SCORE</span>
+                        <span class="stat-value" id="high-score">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-clock"></i>
+                        <span class="stat-label">SESSION</span>
+                        <span class="stat-value" id="session-time">00:00</span>
+                    </div>
+                </div>
+
+                <div class="header-controls">
+                    <button class="icon-btn" id="settings-btn" title="Configuración">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                    <button class="icon-btn" id="fullscreen-btn" title="Pantalla completa">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                    <button class="icon-btn" id="audio-btn" title="Audio">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Área de juego principal -->
+        <main class="game-container">
+            <!-- Panel izquierdo - Controles -->
+            <aside class="control-panel">
+                <div class="panel-section algorithm-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-brain"></i>
+                        ALGORITMOS DE IA
+                    </h3>
+                    <div class="algorithm-selector">
+                        <div class="algorithm-option active" data-algo="astar">
+                            <div class="algo-icon"><i class="fas fa-star"></i></div>
+                            <div class="algo-info">
+                                <span class="algo-name">A* Heuristic</span>
+                                <span class="algo-desc">Balance velocidad-precisión</span>
+                            </div>
+                            <div class="algo-stats">
+                                <span class="performance">95%</span>
+                            </div>
+                        </div>
+                        <div class="algorithm-option" data-algo="bfs">
+                            <div class="algo-icon"><i class="fas fa-expand-arrows-alt"></i></div>
+                            <div class="algo-info">
+                                <span class="algo-name">Breadth-First</span>
+                                <span class="algo-desc">Exploración garantizada</span>
+                            </div>
+                            <div class="algo-stats">
+                                <span class="performance">87%</span>
+                            </div>
+                        </div>
+                        <div class="algorithm-option" data-algo="dfs">
+                            <div class="algo-icon"><i class="fas fa-arrow-down"></i></div>
+                            <div class="algo-info">
+                                <span class="algo-name">Depth-First</span>
+                                <span class="algo-desc">Memoria eficiente</span>
+                            </div>
+                            <div class="algo-stats">
+                                <span class="performance">78%</span>
+                            </div>
+                        </div>
+                        <div class="algorithm-option" data-algo="dijkstra">
+                            <div class="algo-icon"><i class="fas fa-route"></i></div>
+                            <div class="algo-info">
+                                <span class="algo-name">Dijkstra</span>
+                                <span class="algo-desc">Costo uniforme</span>
+                            </div>
+                            <div class="algo-stats">
+                                <span class="performance">82%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-section customization-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-palette"></i>
+                        PERSONALIZACIÓN
+                    </h3>
+
+                    <!-- Skins de serpiente -->
+                    <div class="customization-group">
+                        <label class="custom-label">Skin de Serpiente</label>
+                        <div class="skin-selector">
+                            <div class="skin-option active" data-skin="cyber">
+                                <div class="skin-preview cyber-preview"></div>
+                                <span>Cyber</span>
+                            </div>
+                            <div class="skin-option" data-skin="neon">
+                                <div class="skin-preview neon-preview"></div>
+                                <span>Neon</span>
+                            </div>
+                            <div class="skin-option" data-skin="matrix">
+                                <div class="skin-preview matrix-preview"></div>
+                                <span>Matrix</span>
+                            </div>
+                            <div class="skin-option" data-skin="plasma">
+                                <div class="skin-preview plasma-preview"></div>
+                                <span>Plasma</span>
+                            </div>
+                            <div class="skin-option" data-skin="hologram">
+                                <div class="skin-preview hologram-preview"></div>
+                                <span>Holo</span>
+                            </div>
+                            <div class="skin-option" data-skin="quantum">
+                                <div class="skin-preview quantum-preview"></div>
+                                <span>Quantum</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Estilos de comida -->
+                    <div class="customization-group">
+                        <label class="custom-label">Estilo de Objetivo</label>
+                        <div class="food-selector">
+                            <div class="food-option active" data-food="energy">
+                                <div class="food-preview energy-preview"></div>
+                                <span>Energía</span>
+                            </div>
+                            <div class="food-option" data-food="crystal">
+                                <div class="food-preview crystal-preview"></div>
+                                <span>Cristal</span>
+                            </div>
+                            <div class="food-option" data-food="orb">
+                                <div class="food-preview orb-preview"></div>
+                                <span>Orbe</span>
+                            </div>
+                            <div class="food-option" data-food="data">
+                                <div class="food-preview data-preview"></div>
+                                <span>Data</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Efectos visuales -->
+                    <div class="customization-group">
+                        <label class="custom-label">Efectos Visuales</label>
+                        <div class="effects-controls">
+                            <div class="effect-toggle active" data-effect="particles">
+                                <i class="fas fa-sparkles"></i>
+                                <span>Partículas</span>
+                            </div>
+                            <div class="effect-toggle active" data-effect="trails">
+                                <i class="fas fa-magic"></i>
+                                <span>Estelas</span>
+                            </div>
+                            <div class="effect-toggle active" data-effect="glow">
+                                <i class="fas fa-sun"></i>
+                                <span>Resplandor</span>
+                            </div>
+                            <div class="effect-toggle active" data-effect="shake">
+                                <i class="fas fa-bolt"></i>
+                                <span>Impacto</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controles de juego -->
+                <div class="panel-section game-controls-section">
+                    <div class="main-controls">
+                        <button id="play-btn" class="play-button">
+                            <i class="fas fa-play"></i>
+                            <span>INICIAR IA</span>
+                            <div class="button-glow"></div>
+                        </button>
+
+                        <div class="secondary-controls">
+                            <button id="pause-btn" class="control-btn">
+                                <i class="fas fa-pause"></i>
+                            </button>
+                            <button id="reset-btn" class="control-btn">
+                                <i class="fas fa-redo"></i>
+                            </button>
+                            <button id="path-toggle" class="control-btn">
+                                <i class="fas fa-route"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Control de velocidad -->
+                    <div class="speed-control">
+                        <label class="custom-label">
+                            <i class="fas fa-tachometer-alt"></i>
+                            Velocidad IA
+                        </label>
+                        <div class="slider-container">
+                            <input type="range" id="speed-slider" min="1" max="20" value="8" class="custom-slider">
+                            <div class="slider-track"></div>
+                            <div class="slider-fill"></div>
+                            <div class="speed-indicators">
+                                <span>Lento</span>
+                                <span>Rápido</span>
+                            </div>
+                        </div>
+                        <div class="speed-display">
+                            <span id="speed-value">8</span>
+                            <span class="unit">FPS</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Área de juego central -->
+            <section class="game-area">
+                <div class="game-viewport">
+                    <!-- Canvas del juego con efectos WebGL -->
+                    <canvas id="game-canvas" width="800" height="800"></canvas>
+
+                    <!-- Overlays de efectos -->
+                    <div id="canvas-effects">
+                        <div class="effect-layer" id="particle-layer"></div>
+                        <div class="effect-layer" id="glow-layer"></div>
+                        <div class="effect-layer" id="ui-layer"></div>
+                    </div>
+
+                    <!-- HUD de juego -->
+                    <div class="game-hud">
+                        <div class="hud-corner top-left">
+                            <div class="hud-item score-display">
+                                <i class="fas fa-star"></i>
+                                <span class="hud-label">PUNTUACIÓN</span>
+                                <span class="hud-value" id="current-score">0</span>
+                                <span class="hud-max">/ 35</span>
+                            </div>
+                        </div>
+
+                        <div class="hud-corner top-right">
+                            <div class="hud-item algorithm-display">
+                                <i class="fas fa-brain"></i>
+                                <span class="hud-label">ALGORITMO</span>
+                                <span class="hud-value" id="current-algorithm">A*</span>
+                            </div>
+                        </div>
+
+                        <div class="hud-corner bottom-left">
+                            <div class="hud-item performance-display">
+                                <i class="fas fa-chart-line"></i>
+                                <span class="hud-label">RENDIMIENTO</span>
+                                <span class="hud-value" id="performance-value">0ms</span>
+                            </div>
+                        </div>
+
+                        <div class="hud-corner bottom-right">
+                            <div class="hud-item status-display">
+                                <i class="fas fa-circle" id="status-icon"></i>
+                                <span class="hud-label">ESTADO</span>
+                                <span class="hud-value" id="game-status">LISTO</span>
+                            </div>
+                        </div>
+
+                        <!-- Indicadores de progreso -->
+                        <div class="progress-indicators">
+                            <div class="progress-bar">
+                                <span class="progress-label">Progreso</span>
+                                <div class="progress-track">
+                                    <div class="progress-fill" id="game-progress"></div>
+                                </div>
+                                <span class="progress-text" id="progress-text">0%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Efectos especiales -->
+                    <div id="special-effects">
+                        <div class="effect-burst" id="success-burst"></div>
+                        <div class="effect-explosion" id="collision-explosion"></div>
+                        <div class="effect-aura" id="victory-aura"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Panel derecho - Estadísticas -->
+            <aside class="stats-panel">
+                <div class="panel-section real-time-stats">
+                    <h3 class="section-title">
+                        <i class="fas fa-chart-area"></i>
+                        MÉTRICAS EN TIEMPO REAL
+                    </h3>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Objetivos</span>
+                                <span class="stat-value" id="targets-collected">0</span>
+                                <span class="stat-unit">/ 35</span>
+                            </div>
+                            <div class="stat-trend">
+                                <canvas class="mini-chart" id="targets-chart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-ruler"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Longitud</span>
+                                <span class="stat-value" id="snake-length">3</span>
+                                <span class="stat-unit">unidades</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-stopwatch"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Tiempo IA</span>
+                                <span class="stat-value" id="ai-time">0.0</span>
+                                <span class="stat-unit">ms</span>
+                            </div>
+                            <div class="stat-indicator" id="time-indicator"></div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Nodos</span>
+                                <span class="stat-value" id="nodes-explored">0</span>
+                                <span class="stat-unit">explorados</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-shoe-prints"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Movimientos</span>
+                                <span class="stat-value" id="total-moves">0</span>
+                                <span class="stat-unit">pasos</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-medal"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Eficiencia</span>
+                                <span class="stat-value" id="efficiency-score">100</span>
+                                <span class="stat-unit">%</span>
+                            </div>
+                            <div class="efficiency-bar">
+                                <div class="efficiency-fill" id="efficiency-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gráfico de rendimiento -->
+                <div class="panel-section performance-chart">
+                    <h3 class="section-title">
+                        <i class="fas fa-chart-line"></i>
+                        ANÁLISIS DE RENDIMIENTO
+                    </h3>
+                    <div class="chart-container">
+                        <canvas id="performance-chart" width="300" height="200"></canvas>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <div class="legend-color search-time"></div>
+                                <span>Tiempo de búsqueda</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color nodes-count"></div>
+                                <span>Nodos explorados</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Propuesta de valor -->
+                <div class="panel-section value-proposition">
+                    <h3 class="section-title">
+                        <i class="fas fa-gem"></i>
+                        PROPUESTA DE VALOR
+                    </h3>
+                    <div class="value-content">
+                        <div class="value-item">
+                            <div class="value-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="value-text">
+                                <strong>Valor Educativo</strong>
+                                <p>Visualización interactiva de algoritmos de IA con métricas precisas de rendimiento.</p>
+                            </div>
+                        </div>
+
+                        <div class="value-item">
+                            <div class="value-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <div class="value-text">
+                                <strong>Innovación Técnica</strong>
+                                <p>Implementación profesional con efectos visuales de videojuego AAA.</p>
+                            </div>
+                        </div>
+
+                        <div class="value-item">
+                            <div class="value-icon">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <div class="value-text">
+                                <strong>Análisis Comparativo</strong>
+                                <p>Evaluación en tiempo real de eficiencia algorítmica con datos cuantificables.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- Modales y overlays -->
+    <div id="victory-modal" class="modal">
+        <div class="modal-content victory-content">
+            <div class="victory-animation">
+                <i class="fas fa-trophy"></i>
+            </div>
+            <h2>¡SIMULACIÓN VICTORIOSA!</h2>
+            <div class="victory-stats">
+                <div class="victory-stat">
+                    <span class="stat-label">Algoritmo Ganador</span>
+                    <span class="stat-value" id="winner-algorithm"></span>
+                </div>
+                <div class="victory-stat">
+                    <span class="stat-label">Tiempo Total</span>
+                    <span class="stat-value" id="winner-time"></span>
+                </div>
+                <div class="victory-stat">
+                    <span class="stat-label">Eficiencia</span>
+                    <span class="stat-value" id="winner-efficiency"></span>
+                </div>
+            </div>
+            <button id="victory-continue" class="victory-button">
+                CONTINUAR
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="game-over-modal" class="modal">
+        <div class="modal-content gameover-content">
+            <div class="gameover-animation">
+                <i class="fas fa-skull"></i>
+            </div>
+            <h2>SIMULACIÓN COMPLETADA</h2>
+            <div class="gameover-analysis">
+                <h3>Análisis de Rendimiento</h3>
+                <div class="analysis-grid">
+                    <div class="analysis-item">
+                        <span>Puntuación Final</span>
+                        <span id="final-score">0</span>
+                    </div>
+                    <div class="analysis-item">
+                        <span>Tiempo Promedio IA</span>
+                        <span id="avg-ai-time">0ms</span>
+                    </div>
+                    <div class="analysis-item">
+                        <span>Nodos Totales</span>
+                        <span id="total-nodes">0</span>
+                    </div>
+                </div>
+            </div>
+            <button id="gameover-retry" class="gameover-button">
+                INTENTAR DE NUEVO
+                <i class="fas fa-redo"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="game-engine.js"></script>
+    <script src="ai-algorithms.js"></script>
+    <script src="visual-effects.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
